@@ -1,0 +1,48 @@
+generation:
+  module:
+    source_type: excel
+    source_location: PVModuleList
+    skiprows: 16
+    extract_function: extract_excel
+    transform_function: modules_transform
+    image_subdir: images/modules/
+    doc_subdir: docs/modules/
+
+storage:
+  battery:
+    source_type: excel
+    source_location: BatteryList
+    skiprows: 10
+    extract_function: extract_excel
+    transform_function: batteries_transform
+    image_subdir: images/batteries/
+    doc_subdir: docs/batteries/
+  ess:
+    source_type: excel
+    source_location: EnergyStorage
+    skiprows: 15
+    extract_function: extract_excel
+    transform_function: ess_transform
+    image_subdir: images/ess/
+    doc_subdir: docs/ess/
+
+transmission:
+  inverter:
+    source_type: excel
+    source_location: InvertersList
+    skiprows: 14
+    extract_function: extract_excel
+    transform_function: inverters_transform
+    image_subdir: images/inverters/
+    doc_subdir: docs/inverters/
+
+consumption:
+  meter:
+    source_type: excel
+    source_location: MeterList
+    skiprows: 7
+    extract_function: extract_excel
+    transform_function: meters_transform
+    image_subdir: images/meters/
+    doc_subdir: docs/meters/
+

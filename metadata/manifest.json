@@ -1,0 +1,81 @@
+
+{
+    "project": {
+        "name": "Energy Accounting Metadata",
+        "version": "1.0.0",
+        "author": "Stephen Harrington",
+        "description": "A unified framework for generating, storing, and verifying metadata for energy-related assets."
+    },
+    "directories": {
+        "data": "./data",
+        "schemas": "./schemas",
+        "helpers": "./helpers",
+        "services": "./services",
+        "transforms": "./transforms",
+        "cli": "./cli",
+        "ipfs": "./ipfs"
+    },
+    "assets": {
+        "component": {
+            "registry_file": "component_registry.yaml",
+            "schema": "./schemas/component_schema.json",
+            "transform_function": "component_transform",
+            "extract_functions": ["extract_excel", "extract_csv", "extract_api", "extract_manual"],
+            "storage_table": "accounting.components"
+        },
+        "installation": {
+            "registry_file": "installation_registry.yaml",
+            "schema": "./schemas/installation_schema.json",
+            "transform_function": "installations_transform",
+            "extract_functions": ["extract_excel", "extract_csv", "extract_api", "extract_manual"],
+            "storage_table": "accounting.installations"
+        }
+    },
+    "services": {
+        "postgres": {
+            "host": "localhost",
+            "port": 5432,
+            "schema": "accounting",
+            "tables": ["components", "installations"]
+        },
+        "ipfs": {
+            "host": "127.0.0.1",
+            "port": 5001,
+            "protocol": "http"
+        }
+    },
+    "environment": [
+        {
+            "variable": "POSTGRES_USER",
+            "description": "PostgreSQL database username"
+        },
+        {
+            "variable": "POSTGRES_PASSWORD",
+            "description": "PostgreSQL database password"
+        },
+        {
+            "variable": "POSTGRES_HOST",
+            "description": "PostgreSQL database host"
+        },
+        {
+            "variable": "POSTGRES_PORT",
+            "description": "PostgreSQL database port"
+        },
+        {
+            "variable": "POSTGRES_DB",
+            "description": "PostgreSQL database name"
+        },
+        {
+            "variable": "IPFS_HOST",
+            "description": "IPFS daemon host"
+        },
+        {
+            "variable": "IPFS_PORT",
+            "description": "IPFS daemon port"
+        }
+    ],
+    "entry_points": {
+        "generate_metadata": "./cli/generate_metadata.py",
+        "upload_ipfs": "./cli/upload_ipfs.py"
+    }
+}

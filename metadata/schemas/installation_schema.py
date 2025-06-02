@@ -1,0 +1,53 @@
+installation_schema = {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Installation Metadata Schema",
+  "type": "object",
+  "required": ["name", "description", "image", "installation_type", "geometry", "components", "attributes", "tokenId"],
+  "properties": {
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "image": { "type": "string" },
+    "installation_type": { "type": "string" },
+    "tokenId": { "type": "string" },
+    "geometry": {
+      "type": "object",
+      "required": ["type", "coordinates"],
+      "properties": {
+        "type": { "type": "string" },
+        "coordinates": { "type": "array" },
+        "packed_multipolygon_deltas": { "type": "string" }
+      }
+    },
+    "bbox": {
+      "type": "array",
+      "items": { "type": "number" }
+    },
+    "centroid": {
+      "type": "array",
+      "items": { "type": "number" }
+    },
+    "components": {
+      "type": "object",
+      "properties": {
+        "modules": { "type": "array", "items": { "type": "object" } },
+        "inverters": { "type": "array", "items": { "type": "object" } },
+        "meters": { "type": "array", "items": { "type": "object" } },
+        "batteries": { "type": "array", "items": { "type": "object" } },
+        "transformers": { "type": "array", "items": { "type": "object" } },
+        "lines": { "type": "array", "items": { "type": "object" } }
+      },
+      "additionalProperties": True
+    },
+    "attributes": {
+      "type": "array",
+      "items": { 
+        "type": "object",
+        "required": ["trait_type", "value"],
+        "properties": {
+          "trait_type": { "type": "string" },
+          "value": {}
+        }
+      }
+    }
+  }
+}

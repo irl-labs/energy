@@ -1,0 +1,26 @@
+generation:
+  solar_array:
+    source_type: manual
+    source_location: "./data/solar_array_registry.csv"
+    extract_function: extract_manual
+    transform_function: solar_array_transform
+    image_subdir: images/solar_arrays/
+    doc_subdir: docs/solar_arrays/
+
+storage:
+  battery_bank:
+    source_type: manual
+    source_location: "./data/battery_bank_registry.csv"
+    extract_function: extract_manual
+    transform_function: battery_bank_transform
+    image_subdir: images/battery_banks/
+    doc_subdir: docs/battery_banks/
+
+transmission:
+  substation:
+    source_type: manual
+    source_location: "./data/substation_registry.csv"
+    extract_function: extract_manual
+    transform_function: substation_transform
+    image_subdir: images/substations/
+    doc_subdir: docs/substations/
