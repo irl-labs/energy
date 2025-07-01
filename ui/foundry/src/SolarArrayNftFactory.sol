@@ -41,7 +41,7 @@ contract SolarArrayNftFactory is ERC1155, Pausable, Ownable {
     address public i_owner; // Contract owner address
     uint256 public s_tokenCount = 0;
 
-    event TokenCreated(address indexed i_owner, uint256 indexed tokenId, string uri);
+    event InstallationCreated(address indexed i_owner, uint256 indexed tokenId, string uri);
 
     constructor(
         address _componentsFactory,
@@ -220,7 +220,7 @@ contract SolarArrayNftFactory is ERC1155, Pausable, Ownable {
 
         // Minting the solar array
         // setCustomUri(solarArray.tokenId, newTokenURI); // Optional if using token-specific URIs
-        emit TokenCreated(owner, solarArray.tokenId, uri(solarArray.tokenId));
+        emit InstallationCreated(owner, solarArray.tokenId, uri(solarArray.tokenId));
         _mint(owner, solarArray.tokenId, 1, solarArray.geometry);
 
         // Update mappings, counter

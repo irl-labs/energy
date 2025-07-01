@@ -43,7 +43,9 @@ contract SolarArrayComponentsNftFactory is ERC1155, Ownable, Pausable {
 
     address public i_owner; // Contract owner address
 
-    event TokenCreated(uint256 tokenId, string uri);
+    event ComponentCreated(address indexed i_owner, uint256 indexed tokenId, string uri);
+    event CollectionCreated(uint256 indexed collectionId, address indexed owner, string uri);
+
 
     /**
      * @dev Initializes the contract, setting the owner and pausing the contract initially.
@@ -53,18 +55,6 @@ contract SolarArrayComponentsNftFactory is ERC1155, Ownable, Pausable {
         _pause(); // Start the contract in paused state
     }
 
-    /**
-     * @dev Emitted when a new collection is created.
-     * @param collectionId The ID of the newly created collection.
-     * @param owner The address of the owner of the collection.
-     * @param uri The base URI of the collection.
-     */
-    event CollectionCreated(uint256 indexed collectionId, address owner, string uri);
-
-   /**
-     * @dev Sets the contract name, description.
-     * @return string The json encoded string.
-     */
     function contractURI() public pure returns (string memory) {
         string memory json = '{"name": "Solar Array Components NFT Factory ","description":"Register solar array components"}';
         return string.concat("data:application/json;utf8,", json);
@@ -84,7 +74,7 @@ contract SolarArrayComponentsNftFactory is ERC1155, Ownable, Pausable {
 
         // _setURI(baseURI);
 
-        emit CollectionCreated(newCollectionId, to, newCollection.baseURI);
+        emit CollectionCreated(newCollectionId, newCollection.owner, newCollection.baseURI);
         return newCollectionId;
     }
 
@@ -117,7 +107,7 @@ contract SolarArrayComponentsNftFactory is ERC1155, Ownable, Pausable {
 
         _mint(to, tokenId, supply, data);
         setCustomUri(tokenId, newTokenURI); // Optional if using token-specific URIs
-        emit TokenCreated(tokenId, uri(tokenId));
+        emit ComponentCreated(to, tokenId, newTokenURI);
 
         mintedTokens[tokenId] = true;
         // collectionsTokenIds.collectionTokenIds[collectionId].push(tokenId);  // is this necessary?
@@ -132,12 +122,9 @@ contract SolarArrayComponentsNftFactory is ERC1155, Ownable, Pausable {
     /**
      * @dev Mints a new token for a specific component within a collection.
      * Removes all spaces and converts component, manufacturer, and model strings to lowercase before generating the token ID.
-     * @param collectionId The ID of the collection where the token will be minted.
      * @param component The name of the component.
      * @param manufacturer The name of the manufacturer.
      * @param model The model of the component.
-     * @param supply The number of tokens to mint.
-     * @param data Additional data, if any.
      */
     
     function generateTokenId(

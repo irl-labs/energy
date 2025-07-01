@@ -1,4 +1,4 @@
-name: marketplaceIndexer
+name: energyIndexer
 project_type: no-code
 networks:
 - name: anvil
@@ -13,11 +13,20 @@ storage:
 native_transfers:
   enabled: false
 contracts:
-- name: NftEnergy
+- name: InstallationNftFactory
   details:
   - network: anvil
     address: 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
     start_block: '0'
-  abi: ./abis/NftEnergy.abi.json
+  abi: ./abis/InstallationNftFactory.abi.json
   include_events:
-  - TokenCreated
+  - InstallationCreated
+- name: ComponentNftFactory
+  details:
+  - network: anvil
+    address: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+    start_block: '0'
+  abi: ./abis/ComponentNftFactory.abi.json
+  include_events:
+  - ComponentCreated
+  - CollectionCreated
